@@ -2,7 +2,7 @@
 //  solver.cpp
 //  EquationSolver
 //
-//  Created by William Castellano on 9/22/17.
+//  Created by William Castellano on 9/23/17.
 //  Copyright © 2017 William Castellano. All rights reserved.
 //
 

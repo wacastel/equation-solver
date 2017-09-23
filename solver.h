@@ -6,8 +6,8 @@
 //  Copyright © 2017 William Castellano. All rights reserved.
 //
 
-#ifndef main_h
-#define main_h
+#ifndef solver_h
+#define solver_h
 
 using namespace std;
 
@@ -37,4 +37,4 @@ rhsLists parseString(string input);
 vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input);
 vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums);
 
-#endif /* main_h */
+#endif /* solver_h */
