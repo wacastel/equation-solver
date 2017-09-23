@@ -32,9 +32,7 @@ private:
     rhsLists lists;
     vector<solvedEquation> solvedList;
     string filename;
-public:
-    Solver(string filename);
-    void solveIt();
+    
     string removeWhitespace(string input);
     vector<string> getList(string filename);
     string getLeft(string input);
@@ -47,7 +45,12 @@ public:
     void printDoubleVector(vector< vector<string> > input);
     rhsLists parseString(string input);
     vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input);
-    vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums);
+    vector<solvedEquation> checkSolved();
+    void substituteValues();
+    void parseEquationStrings(vector<string>);
+public:
+    Solver(string filename);
+    void solveIt();
 };
 
 // Function Declarations

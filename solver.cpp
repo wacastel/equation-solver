@@ -30,6 +30,29 @@ void Solver::solveIt() {
     printInput(equationList);
     cout << endl;
     
+    parseEquationStrings(equationList);
+    
+    long safetyIndex = 0;
+    solvedList.clear();
+    
+    // This is the main loop for the equation solver
+    // Keep attempting to solve the equations until they're all solved or until 100 iterations are reached
+    while (solvedList.size() < lhs.size() && safetyIndex < 100) {
+        solvedList = checkSolved(); // Get the list of solved equations
+        if (solvedList.size() < lhs.size()) {
+            substituteValues(); // Substitute known variables back into the unsolved equations
+            safetyIndex++;
+        }
+    }
+    
+    // TODO BILL: check if safetyIndex is at the limit and print message if equations are unsolvable
+    
+    cout << "Solved Equations:" << endl;
+    printSolvedList(solvedList);
+    cout << endl;
+}
+
+void Solver::parseEquationStrings(vector<string> equationList) {
     // Parse the input strings and create the parsed equation lists
     for (int i = 0; i < equationList.size(); i++) {
         string strippedLine = removeWhitespace(equationList.at(i));
@@ -39,54 +62,36 @@ void Solver::solveIt() {
         rhsVariables.push_back(lists.vars);
         sums.push_back(lists.sum);
     }
+}
+
+void Solver::substituteValues() {
+    // Here is where we substitute solved values into the rest of the unsolved equations!
+    // Match the LHS variable name with the RHS list of variables in each equation and
+    // perform substitutions if a match is found
     
-    long safetyIndex = 0;
-    
-    // This is the main loop for the equation solver
-    // Keep attempting to solve the equations until they're all solved or until 100 iterations are reached
-    while (solvedList.size() < lhs.size() && safetyIndex < 100) {
-        
-        // Get the list of solved equations
-        solvedList = checkSolved(lhs, rhsVariables, sums);
-        
-        if (solvedList.size() == lhs.size()) {
-            break;
-        }
-        
-        // Here is where we substitute solved values into the rest of the unsolved equations!
-        // Match the LHS variable name with the RHS list of variables in each equation and
-        // perform substitutions if a match is found
-        
-        for (int index = 0; index < solvedList.size(); index++) {
-            string equName = solvedList.at(index).lhs;
-            for (int i = 0; i < rhsVariables.size(); i++) {
-                vector<string> tempList = rhsVariables.at(i);
-                vector<string> newList;
-                for (int j = 0; j < tempList.size(); j++) {
-                    if (equName == tempList.at(j)) {
-                        sums.at(i) += solvedList.at(index).rhs;
-                        tempList.at(j) = "-1"; // mark the solved variable for deletion
-                    }
+    for (int index = 0; index < solvedList.size(); index++) {
+        string equName = solvedList.at(index).lhs;
+        for (int i = 0; i < rhsVariables.size(); i++) {
+            vector<string> tempList = rhsVariables.at(i);
+            vector<string> newList;
+            for (int j = 0; j < tempList.size(); j++) {
+                if (equName == tempList.at(j)) {
+                    sums.at(i) += solvedList.at(index).rhs;
+                    tempList.at(j) = "-1"; // mark the solved variable for deletion
                 }
-                rhsVariables.at(i) = tempList;
             }
+            rhsVariables.at(i) = tempList;
         }
-        
-        // remove the marked entries from rhsVariables
-        rhsVariables = removeMarkedForDeletion(rhsVariables);
-        
-        safetyIndex++;
     }
     
-    cout << "Solved Equations:" << endl;
-    printSolvedList(solvedList);
-    cout << endl;
+    // remove the marked entries from rhsVariables
+    rhsVariables = removeMarkedForDeletion(rhsVariables);
 }
 
 // Loop through lhs and check the rhsVariables size
 // If size is zero, we have a solved equation
 // Store in solved equations list
-vector<solvedEquation> Solver::checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums) {
+vector<solvedEquation> Solver::checkSolved() {
     vector<solvedEquation> solvedList;
     vector<string> tempList;
     solvedEquation solved;
