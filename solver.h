@@ -11,6 +11,7 @@
 
 using namespace std;
 
+// Struct Declarations
 struct rhsLists {
     vector<string> vars;
     long sum;

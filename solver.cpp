@@ -92,9 +92,9 @@ int main(int argc, const char * argv[]) {
     return 0;
 }
 
-// loop through lhs and check the rhsVariables size
-// if size is zero, we have a solved equation
-// store in solved equations list
+// Loop through lhs and check the rhsVariables size
+// If size is zero, we have a solved equation
+// Store in solved equations list
 vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums) {
     vector<solvedEquation> solvedList;
     vector<string> tempList;
@@ -110,6 +110,7 @@ vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > 
     return solvedList;
 }
 
+// Prints out the input equations
 void printInput(vector<string> input) {
     for (int i = 0; i < input.size(); i++) {
         cout << input.at(i) << endl;
@@ -122,6 +123,7 @@ void printVector(vector<string> input) {
     }
 }
 
+// Comparison function for the std::sort algorithm used in printSolvedList below
 bool sortByName(const solvedEquation &equ1, const solvedEquation &equ2) {
     return (equ1.lhs < equ2.lhs);
 }
@@ -228,6 +230,7 @@ vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input)
     return cleanVarList;
 }
 
+// Strips one or more whitespace characters from the input array
 string removeWhitespace(string input) {
     string::iterator endPos = remove(input.begin(), input.end(), ' ');
     input.erase(endPos, input.end());
