@@ -9,6 +9,7 @@
 #ifndef solver_h
 #define solver_h
 
+#include <vector>
 using namespace std;
 
 // Struct Declarations
@@ -22,20 +23,34 @@ struct solvedEquation {
     long rhs;
 };
 
+// Class Declaration
+class Solver {
+private:
+    vector<string> lhs;
+    vector< vector<string> > rhsVariables;
+    vector<long> sums;
+    rhsLists lists;
+    vector<solvedEquation> solvedList;
+    string filename;
+public:
+    Solver(string filename);
+    void solveIt();
+    string removeWhitespace(string input);
+    vector<string> getList(string filename);
+    string getLeft(string input);
+    string getRight(string input);
+    void printVector(vector<string> input);
+    void printInput(vector<string> input);
+    void printSolvedList(vector<solvedEquation> input);
+    void printNumVector(vector<long> input);
+    void printVectorFormatted(vector<string> input);
+    void printDoubleVector(vector< vector<string> > input);
+    rhsLists parseString(string input);
+    vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input);
+    vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums);
+};
+
 // Function Declarations
-string removeWhitespace(string input);
-vector<string> getList(string filename);
-string getLeft(string input);
-string getRight(string input);
-void printVector(vector<string> input);
-void printInput(vector<string> input);
 bool sortByName(const solvedEquation &equ1, const solvedEquation &equ2);
-void printSolvedList(vector<solvedEquation> input);
-void printNumVector(vector<long> input);
-void printVectorFormatted(vector<string> input);
-void printDoubleVector(vector< vector<string> > input);
-rhsLists parseString(string input);
-vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input);
-vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums);
 
 #endif /* solver_h */

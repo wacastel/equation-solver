@@ -14,29 +14,22 @@
 
 using namespace std;
 
-int main(int argc, const char * argv[]) {
-    vector<string> lhs;
-    vector< vector<string> > rhsVariables;
-    vector<long> sums;
-    rhsLists lists;
-    vector<solvedEquation> solvedList;
-    string filename;
-    
-    // Read in the filename from the command line
-    if (argc < 2) {
-        cerr << "Usage: " << argv[0] << " FILENAME" << endl;
-        return 1;
-    } else {
-        filename = argv[1];
-        cout << endl << "Input Filename: " << filename << endl << endl;
-    }
-    
+Solver::Solver(string fname)
+    :filename(fname)
+{}
+
+void Solver::solveIt() {
     // Read the list of equations from a file into a list of unparsed strings
     vector<string> equationList = getList(filename);
+    
+    if (equationList.size() == 0) {
+        return;
+    }
+    
     cout << "Input Equations:" << endl;
     printInput(equationList);
     cout << endl;
-
+    
     // Parse the input strings and create the parsed equation lists
     for (int i = 0; i < equationList.size(); i++) {
         string strippedLine = removeWhitespace(equationList.at(i));
@@ -88,14 +81,12 @@ int main(int argc, const char * argv[]) {
     cout << "Solved Equations:" << endl;
     printSolvedList(solvedList);
     cout << endl;
-
-    return 0;
 }
 
 // Loop through lhs and check the rhsVariables size
 // If size is zero, we have a solved equation
 // Store in solved equations list
-vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums) {
+vector<solvedEquation> Solver::checkSolved(vector<string> lhs, vector< vector<string> > rhsVariables, vector<long> sums) {
     vector<solvedEquation> solvedList;
     vector<string> tempList;
     solvedEquation solved;
@@ -111,13 +102,13 @@ vector<solvedEquation> checkSolved(vector<string> lhs, vector< vector<string> > 
 }
 
 // Prints out the input equations
-void printInput(vector<string> input) {
+void Solver::printInput(vector<string> input) {
     for (int i = 0; i < input.size(); i++) {
         cout << input.at(i) << endl;
     }
 }
 
-void printVector(vector<string> input) {
+void Solver::printVector(vector<string> input) {
     for (int i = 0; i < input.size(); i++) {
         cout << "[" << input.at(i) << "]" << endl;
     }
@@ -129,20 +120,20 @@ bool sortByName(const solvedEquation &equ1, const solvedEquation &equ2) {
 }
 
 // Sort and print the list of solved equations
-void printSolvedList(vector<solvedEquation> input) {
+void Solver::printSolvedList(vector<solvedEquation> input) {
     sort(input.begin(), input.end(), sortByName);
     for (int i = 0; i < input.size(); i++) {
         cout << input.at(i).lhs << " = " << input.at(i).rhs << endl;
     }
 }
 
-void printNumVector(vector<long> input) {
+void Solver::printNumVector(vector<long> input) {
     for (int i = 0; i < input.size(); i++) {
         cout << "[" << input.at(i) << "]" << endl;
     }
 }
 
-void printVectorFormatted(vector<string> input) {
+void Solver::printVectorFormatted(vector<string> input) {
     for (int i = 0; i < input.size(); i++) {
         if (i < input.size() - 1) {
             cout << input.at(i) << ", ";
@@ -152,7 +143,7 @@ void printVectorFormatted(vector<string> input) {
     }
 }
 
-void printDoubleVector(vector< vector<string> > input) {
+void Solver::printDoubleVector(vector< vector<string> > input) {
     for (int i = 0; i < input.size(); i++) {
         cout << "[";
         printVectorFormatted(input.at(i));
@@ -160,17 +151,17 @@ void printDoubleVector(vector< vector<string> > input) {
     }
 }
 
-string getLeft(string input) {
+string Solver::getLeft(string input) {
     string delimiter = "=";
     return input.substr(0, input.find(delimiter));
 }
 
-string getRight(string input) {
+string Solver::getRight(string input) {
     string delimiter = "=";
     return input.substr(input.find(delimiter)+1, input.length());
 }
 
-rhsLists parseString(string input) {
+rhsLists Solver::parseString(string input) {
     rhsLists tempLists;
     tempLists.sum = 0;
     string delimiter = "+";
@@ -196,7 +187,7 @@ rhsLists parseString(string input) {
     return tempLists;
 }
 
-vector<string> getList(string filename) {
+vector<string> Solver::getList(string filename) {
     string line;
     vector<string> equationList;
     ifstream inputFile(filename);
@@ -206,12 +197,12 @@ vector<string> getList(string filename) {
         }
         inputFile.close();
     } else {
-        cout << "Unable to read input file!" << endl;
+        cerr << "Unable to read input file!" << endl << endl;
     }
     return equationList;
 }
 
-vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input) {
+vector< vector<string> > Solver::removeMarkedForDeletion(vector< vector<string> > input) {
     vector< vector<string> > cleanVarList;
     vector<string> newList;
     vector<string> origList;
@@ -231,7 +222,7 @@ vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input)
 }
 
 // Strips one or more whitespace characters from the input array
-string removeWhitespace(string input) {
+string Solver::removeWhitespace(string input) {
     string::iterator endPos = remove(input.begin(), input.end(), ' ');
     input.erase(endPos, input.end());
     return input;
