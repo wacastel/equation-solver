@@ -1,5 +1,5 @@
 //
-//  main.h
+//  solver.h
 //  EquationSolver
 //
 //  Created by William Castellano on 9/23/17.

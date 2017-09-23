@@ -1,5 +1,5 @@
 //
-//  main.cpp
+//  solver.cpp
 //  EquationSolver
 //
 //  Created by William Castellano on 9/22/17.
@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "main.h"
+#include "solver.h"
 
 using namespace std;
 
