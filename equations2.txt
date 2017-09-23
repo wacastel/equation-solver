@@ -1,0 +1,4 @@
+var1 = 5 + 19 + var2 + var4
+var3 = 7 + 2 + 8 + var4 + 9
+var2 = 2 + 4
+var4 = 4 + var2 + 1
