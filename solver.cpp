@@ -52,8 +52,8 @@ void Solver::solveIt() {
     cout << endl;
 }
 
+// Parse the input strings and create the parsed equation lists
 void Solver::parseEquationStrings(vector<string> equationList) {
-    // Parse the input strings and create the parsed equation lists
     for (int i = 0; i < equationList.size(); i++) {
         string strippedLine = removeWhitespace(equationList.at(i));
         lhs.push_back(getLeft(strippedLine));
@@ -64,11 +64,10 @@ void Solver::parseEquationStrings(vector<string> equationList) {
     }
 }
 
+// Here is where we substitute solved values into the rest of the unsolved equations!
+// Match the LHS variable name with the RHS list of variables in each equation and
+// perform substitutions if a match is found
 void Solver::substituteValues() {
-    // Here is where we substitute solved values into the rest of the unsolved equations!
-    // Match the LHS variable name with the RHS list of variables in each equation and
-    // perform substitutions if a match is found
-    
     for (int index = 0; index < solvedList.size(); index++) {
         string equName = solvedList.at(index).lhs;
         for (int i = 0; i < rhsVariables.size(); i++) {
@@ -83,9 +82,7 @@ void Solver::substituteValues() {
             rhsVariables.at(i) = tempList;
         }
     }
-    
-    // remove the marked entries from rhsVariables
-    rhsVariables = removeMarkedForDeletion(rhsVariables);
+    rhsVariables = removeMarkedForDeletion(rhsVariables); // remove the marked entries
 }
 
 // Loop through lhs and check the rhsVariables size
