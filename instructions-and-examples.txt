@@ -11,10 +11,11 @@ The following three files are required to compile and run the project:
 -solver.h - header file containing the solver class declaration
 -main.cpp - contains main function that invokes the solver
 
-Also included are sample input files:
+Also included are three sample input files:
 
 -equations.txt
 -equations2.txt
+-equations3.txt
 
 ====================================================================
 
@@ -60,3 +61,18 @@ var2 = 6
 var3 = 37
 var4 = 11
 
+Sample Input #3:
+
+orange = 2 + banana + 3
+apple = banana + kiwi
+banana = 4
+kiwi = banana + 3
+pineapple = kiwi + 1 + orange
+
+Sample Output #3:
+
+apple = 11
+banana = 4
+kiwi = 7
+orange = 9
+pineapple = 17
