@@ -1,0 +1,62 @@
+
+C++ Equation Evaluator Challenge - Project Submission
+William Castellano
+9/24/2017
+
+*** Project Files ***
+
+The following three files are required to compile and run the project:
+
+-solver.cpp - contains the implementation of the solver class
+-solver.h - header file containing the solver class declaration
+-main.cpp - contains main function that invokes the solver
+
+Also included are sample input files:
+
+-equations.txt
+-equations2.txt
+
+====================================================================
+
+*** How to compile and run the solver program ***
+
+Build the solver executable by running the following command:
+
+> g++ main.cpp solver.cpp -o solver
+
+Run the executable by providing a filename containing the input equations:
+
+> ./solver equations.txt
+
+====================================================================
+
+*** Sample Input & Output ***
+
+Sample Input #1:
+
+location = 1 + origin + offset
+origin = 3 + 5
+random = 2
+offset = 4 + random + 1
+
+Sample Output #1:
+
+location = 16
+offset = 7
+origin = 8
+random = 2
+
+Sample Input #2:
+
+var1 = 5 + 19 + var2 + var4
+var3 = 7 + 2 + 8 + var4 + 9
+var2 = 2 + 4
+var4 = 4 + var2 + 1
+
+Sample Output #2:
+
+var1 = 41
+var2 = 6
+var3 = 37
+var4 = 11
+
