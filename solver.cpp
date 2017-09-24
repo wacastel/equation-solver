@@ -178,16 +178,31 @@ void Solver::printDoubleVector(vector< vector<string> > input) {
     }
 }
 
+/**
+   Parses an equation string to get the left hand side of the equation
+   @param input the input equation to be parsed
+   @return a string containing the LHS of the equation
+ */
 string Solver::getLeft(string input) {
     string delimiter = "=";
     return input.substr(0, input.find(delimiter));
 }
 
+/**
+ Parses an equation string to get the right hand side of the equation
+ @param input the input equation to be parsed
+ @return a string containing the RHS of the equation
+ */
 string Solver::getRight(string input) {
     string delimiter = "=";
     return input.substr(input.find(delimiter)+1, input.length());
 }
 
+/**
+   Parses an input string into a list of variable names and a sum of integers
+   @param input the input equation to be parsed
+   @return a struct containing the list of variable names and sum
+ */
 rhsLists Solver::parseString(string input) {
     rhsLists tempLists;
     tempLists.sum = 0;
@@ -214,6 +229,11 @@ rhsLists Solver::parseString(string input) {
     return tempLists;
 }
 
+/**
+   Gets the list of unparsed equations from an input file
+   @param filename the name of the input file containing the set of equations
+   @return a list containing the set of input equations
+ */
 vector<string> Solver::getList(string filename) {
     string line;
     vector<string> equationList;
@@ -229,6 +249,11 @@ vector<string> Solver::getList(string filename) {
     return equationList;
 }
 
+/**
+   Removes the RHS variables from the list that have already been substituted and processed
+   @param input list of string vectors containing equation variable names
+   @return the list of processed string vectors with the marked entries removed
+ */
 vector< vector<string> > Solver::removeMarkedForDeletion(vector< vector<string> > input) {
     vector< vector<string> > cleanVarList;
     vector<string> newList;
