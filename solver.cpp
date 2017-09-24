@@ -18,6 +18,10 @@ Solver::Solver(string fname)
     :filename(fname)
 {}
 
+/**
+    Solves the list of equations by parsing them, substituting in values and checking for solved equations.
+    The algorithm reads a text file of equations and outputs the solution to the console.
+ */
 void Solver::solveIt() {
     // Read the list of equations from a file into a list of unparsed strings
     vector<string> equationList = getList(filename);
@@ -25,10 +29,6 @@ void Solver::solveIt() {
     if (equationList.size() == 0) {
         return;
     }
-    
-    cout << "Input Equations:" << endl;
-    printInput(equationList);
-    cout << endl;
     
     parseEquationStrings(equationList);
     
@@ -44,15 +44,24 @@ void Solver::solveIt() {
             safetyIndex++;
         }
     }
-    
+    cout << "Safety index: " << safetyIndex << endl;
     // TODO BILL: check if safetyIndex is at the limit and print message if equations are unsolvable
-    
-    cout << "Solved Equations:" << endl;
-    printSolvedList(solvedList);
-    cout << endl;
+    if (safetyIndex == 100) {
+        cout << "Equations could not be solved!" << endl;
+        cout << "Input Equations:" << endl;
+        printInput(equationList);
+        cout << endl;
+    } else {
+        cout << "Solved Equations:" << endl;
+        printSolvedList(solvedList);
+        cout << endl;
+    }
 }
 
-// Parse the input strings and create the parsed equation lists
+/**
+   Parse the input strings and create the parsed equation lists
+   @param equationList the list of equation strings
+ */
 void Solver::parseEquationStrings(vector<string> equationList) {
     for (int i = 0; i < equationList.size(); i++) {
         string strippedLine = removeWhitespace(equationList.at(i));
@@ -64,9 +73,11 @@ void Solver::parseEquationStrings(vector<string> equationList) {
     }
 }
 
-// Here is where we substitute solved values into the rest of the unsolved equations!
-// Match the LHS variable name with the RHS list of variables in each equation and
-// perform substitutions if a match is found
+/**
+   Here is where we substitute solved values into the rest of the unsolved equations!
+   Match the LHS variable name with the RHS list of variables in each equation and
+   perform substitutions if a match is found
+ */
 void Solver::substituteValues() {
     for (int index = 0; index < solvedList.size(); index++) {
         string equName = solvedList.at(index).lhs;
@@ -85,9 +96,12 @@ void Solver::substituteValues() {
     rhsVariables = removeMarkedForDeletion(rhsVariables); // remove the marked entries
 }
 
-// Loop through lhs and check the rhsVariables size
-// If size is zero, we have a solved equation
-// Store in solved equations list
+/**
+   Loop through lhs and check the rhsVariables size
+   If size is zero, we have a solved equation
+   Store in solved equations list
+   @return the vector of solved equations
+ */
 vector<solvedEquation> Solver::checkSolved() {
     vector<solvedEquation> solvedList;
     vector<string> tempList;
@@ -103,7 +117,10 @@ vector<solvedEquation> Solver::checkSolved() {
     return solvedList;
 }
 
-// Prints out the input equations
+/**
+   Prints out the input equations
+   @param input the list of equations to solve
+ */
 void Solver::printInput(vector<string> input) {
     for (int i = 0; i < input.size(); i++) {
         cout << input.at(i) << endl;
@@ -116,12 +133,20 @@ void Solver::printVector(vector<string> input) {
     }
 }
 
-// Comparison function for the std::sort algorithm used in printSolvedList below
+/**
+   Comparison function for the std::sort algorithm used in printSolvedList below
+   @param equ1 the first solved equation struct
+   @param equ2 the second solved equation struct
+   @return bool the results of the comparison
+ */
 bool sortByName(const solvedEquation &equ1, const solvedEquation &equ2) {
     return (equ1.lhs < equ2.lhs);
 }
 
-// Sort and print the list of solved equations
+/**
+   Sort and print the list of solved equations
+   @param input the list of solved equations
+ */
 void Solver::printSolvedList(vector<solvedEquation> input) {
     sort(input.begin(), input.end(), sortByName);
     for (int i = 0; i < input.size(); i++) {
@@ -223,7 +248,11 @@ vector< vector<string> > Solver::removeMarkedForDeletion(vector< vector<string> 
     return cleanVarList;
 }
 
-// Strips one or more whitespace characters from the input array
+/**
+   Strips one or more whitespace characters from the input array
+   @param input the input string with whitespaces
+   @return the string with whitespaces removed
+ */
 string Solver::removeWhitespace(string input) {
     string::iterator endPos = remove(input.begin(), input.end(), ' ');
     input.erase(endPos, input.end());
