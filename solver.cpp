@@ -44,7 +44,7 @@ void Solver::solveIt() {
             safetyIndex++;
         }
     }
-    // Check if safetyIndex is at the limit and print message if equations are unsolvable
+    // Check if safetyIndex is at the limit and print the original set of equations if they are unsolvable
     if (safetyIndex == 100) {
         printInput(equationList);
         cout << endl;
