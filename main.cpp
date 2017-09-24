@@ -18,7 +18,6 @@ int main(int argc, const char * argv[]) {
         return 1;
     } else {
         string filename = argv[1];
-        cout << endl << "Input Filename: " << filename << endl << endl;
         Solver solver(filename);
         solver.solveIt();
     }

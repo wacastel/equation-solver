@@ -37,12 +37,8 @@ private:
     vector<string> getList(string filename);
     string getLeft(string input);
     string getRight(string input);
-    void printVector(vector<string> input);
     void printInput(vector<string> input);
     void printSolvedList(vector<solvedEquation> input);
-    void printNumVector(vector<long> input);
-    void printVectorFormatted(vector<string> input);
-    void printDoubleVector(vector< vector<string> > input);
     rhsLists parseString(string input);
     vector< vector<string> > removeMarkedForDeletion(vector< vector<string> > input);
     vector<solvedEquation> checkSolved();

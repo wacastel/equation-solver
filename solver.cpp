@@ -44,15 +44,11 @@ void Solver::solveIt() {
             safetyIndex++;
         }
     }
-    cout << "Safety index: " << safetyIndex << endl;
-    // TODO BILL: check if safetyIndex is at the limit and print message if equations are unsolvable
+    // Check if safetyIndex is at the limit and print message if equations are unsolvable
     if (safetyIndex == 100) {
-        cout << "Equations could not be solved!" << endl;
-        cout << "Input Equations:" << endl;
         printInput(equationList);
         cout << endl;
     } else {
-        cout << "Solved Equations:" << endl;
         printSolvedList(solvedList);
         cout << endl;
     }
@@ -127,12 +123,6 @@ void Solver::printInput(vector<string> input) {
     }
 }
 
-void Solver::printVector(vector<string> input) {
-    for (int i = 0; i < input.size(); i++) {
-        cout << "[" << input.at(i) << "]" << endl;
-    }
-}
-
 /**
    Comparison function for the std::sort algorithm used in printSolvedList below
    @param equ1 the first solved equation struct
@@ -151,30 +141,6 @@ void Solver::printSolvedList(vector<solvedEquation> input) {
     sort(input.begin(), input.end(), sortByName);
     for (int i = 0; i < input.size(); i++) {
         cout << input.at(i).lhs << " = " << input.at(i).rhs << endl;
-    }
-}
-
-void Solver::printNumVector(vector<long> input) {
-    for (int i = 0; i < input.size(); i++) {
-        cout << "[" << input.at(i) << "]" << endl;
-    }
-}
-
-void Solver::printVectorFormatted(vector<string> input) {
-    for (int i = 0; i < input.size(); i++) {
-        if (i < input.size() - 1) {
-            cout << input.at(i) << ", ";
-        } else {
-            cout << input.at(i);
-        }
-    }
-}
-
-void Solver::printDoubleVector(vector< vector<string> > input) {
-    for (int i = 0; i < input.size(); i++) {
-        cout << "[";
-        printVectorFormatted(input.at(i));
-        cout << "]" << endl;
     }
 }
 
